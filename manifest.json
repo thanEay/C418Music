@@ -1,9 +1,84 @@
 {
   "albums": [
     {
-      "name": "C418",
-      "cover": null,
-      "songs": []
+      "name": "C418 - 0x10c",
+      "cover": "C418/C418 - 0x10c/cover.png",
+      "songs": [
+        {
+          "title": "01 0x10c",
+          "file": "C418/C418 - 0x10c/C418 - 0x10c - 01 0x10c.mp3"
+        },
+        {
+          "title": "02 0",
+          "file": "C418/C418 - 0x10c/C418 - 0x10c - 02 0.mp3"
+        }
+      ]
+    },
+    {
+      "name": "C418 - 2 years of failure",
+      "cover": "C418/C418 - 2 years of failure/cover.png",
+      "songs": [
+        {
+          "title": "01 90s_in",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 01 90s_in.mp3"
+        },
+        {
+          "title": "02 90s_tripverse",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 02 90s_tripverse.mp3"
+        },
+        {
+          "title": "03 90s_ani",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 03 90s_ani.mp3"
+        },
+        {
+          "title": "04 90s_management",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 04 90s_management.mp3"
+        },
+        {
+          "title": "05 90s_nostress",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 05 90s_nostress.mp3"
+        },
+        {
+          "title": "06 90s_out",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 06 90s_out.mp3"
+        },
+        {
+          "title": "07 pizza",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 07 pizza.mp3"
+        },
+        {
+          "title": "08 house_loneliness",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 08 house_loneliness.mp3"
+        },
+        {
+          "title": "09 choice_broken",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 09 choice_broken.mp3"
+        },
+        {
+          "title": "10 cr1_meadow",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 10 cr1_meadow.mp3"
+        },
+        {
+          "title": "11 cr2_finl",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 11 cr2_finl.mp3"
+        },
+        {
+          "title": "12 185_pre",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 12 185_pre.mp3"
+        },
+        {
+          "title": "13 egoismus_2016edit",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 13 egoismus_2016edit.mp3"
+        },
+        {
+          "title": "14 kaneda",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 14 kaneda.mp3"
+        },
+        {
+          "title": "15 stranger_think",
+          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 15 stranger_think.mp3"
+        }
+      ]
     }
   ]
 }
