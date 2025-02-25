@@ -1,34 +1,43 @@
 import os
 import json
-
-# Directory that contains all album folders
-ALBUMS_DIR = "C418"
+import re
 
 manifest = {"albums": []}
 
-# Iterate over subdirectories in the ALBUMS_DIR folder
-for album in sorted(os.listdir(ALBUMS_DIR)):
-    album_dir = os.path.join(ALBUMS_DIR, album)
-    if not os.path.isdir(album_dir):
-        continue  # Skip any files in the container folder
+# Iterate over directories in the repository root.
+# This assumes your album folders (e.g. "C418 - 0x10c", "C418 - 2 years of failure", etc.)
+# are at the root level.
+for entry in sorted(os.listdir('.')):
+    # Skip hidden directories or non-album folders (like .github, node_modules, etc.)
+    if entry.startswith('.') or not os.path.isdir(entry):
+        continue
+    # Only process directories that contain at least one MP3 file
+    files = os.listdir(entry)
+    if not any(f.lower().endswith('.mp3') for f in files):
+        continue
 
-    album_data = {"name": album, "cover": None, "songs": []}
+    album_data = {"name": entry, "cover": None, "songs": []}
 
-    for filename in sorted(os.listdir(album_dir)):
-        filepath = os.path.join(ALBUMS_DIR, album, filename)
-        # Identify the cover image
+    for filename in sorted(files):
+        filepath = os.path.join(entry, filename)
+        # Check for cover image (png or jpg)
         if filename.lower().startswith("cover") and filename.lower().endswith(('.png', '.jpg')):
             album_data["cover"] = filepath
-        # Identify MP3 files and extract song title
         elif filename.lower().endswith(".mp3"):
+            # Split the filename by " - " to isolate the song info.
+            # Expected format: "AlbumName - AlbumName - [track number] [Song Title].mp3"
             parts = filename.split(" - ")
             if len(parts) >= 3:
-                song_title = " - ".join(parts[2:]).replace(".mp3", "").strip()
+                # Join the parts after the first two (in case the title has dashes)
+                song_info = " - ".join(parts[2:])
             else:
-                song_title = filename.replace(".mp3", "").strip()
+                song_info = parts[-1]
+            song_info = song_info.replace(".mp3", "").strip()
+            # Remove any leading track number (digits followed by optional space)
+            song_title = re.sub(r'^\d+\s*', '', song_info)
             album_data["songs"].append({"title": song_title, "file": filepath})
-    
-    # Add album only if it has at least one song
+
+    # Only add albums that have at least one song
     if album_data["songs"]:
         manifest["albums"].append(album_data)
 
