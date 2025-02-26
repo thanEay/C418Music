@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // State variables
+    // State
     let manifest;
     let currentAlbum = null;
     let currentSongIndex = -1;
-    let shuffle = false;
-    let repeatMode = "off"; // Modes: "off", "all", "one"
+    let shuffleEnabled = false;
+    let repeatEnabled = false;
   
-    // DOM Elements
+    // DOM references
     const audio = document.getElementById('audio');
     const albumsContainer = document.getElementById('albums-container');
     const songsContainer = document.getElementById('songs-container');
@@ -15,10 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const playBtn = document.getElementById('play-btn');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
-    const shuffleBtn = document.getElementById('shuffle-btn');
-    const repeatBtn = document.getElementById('repeat-btn');
     const searchInput = document.getElementById('search');
     const themeToggle = document.getElementById('theme-toggle');
+  
+    // Shuffle/Repeat checkboxes
+    const shuffleCheckbox = document.getElementById('shuffle-checkbox');
+    const repeatCheckbox = document.getElementById('repeat-checkbox');
+  
+    // Progress bar & time
+    const progressBar = document.getElementById('progress-bar');
+    const currentTimeSpan = document.getElementById('current-time');
+    const durationSpan = document.getElementById('duration');
+    const songTitleDisplay = document.getElementById('song-title');
+  
+    // 10s skip
+    const forwardBtn = document.getElementById('forward-btn');
+    const backwardBtn = document.getElementById('backward-btn');
   
     // Load manifest.json
     fetch('manifest.json')
@@ -31,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Error loading manifest:', err);
       });
   
-    // Render album list
     function displayAlbums() {
       albumsContainer.innerHTML = '';
       manifest.albums.forEach((album, index) => {
@@ -40,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         albumDiv.dataset.index = index;
   
         const img = document.createElement('img');
-        img.src = album.cover;
+        img.src = album.cover || '';
         img.alt = album.name;
   
         const nameDiv = document.createElement('div');
@@ -50,15 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
         albumDiv.appendChild(img);
         albumDiv.appendChild(nameDiv);
   
-        albumDiv.addEventListener('click', () => {
-          selectAlbum(index);
-        });
-  
+        albumDiv.addEventListener('click', () => selectAlbum(index));
         albumsContainer.appendChild(albumDiv);
       });
     }
   
-    // Select an album and display its songs
     function selectAlbum(index) {
       currentAlbum = manifest.albums[index];
       albumTitleElem.textContent = currentAlbum.name;
@@ -66,25 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
       displaySongs(currentAlbum.songs);
     }
   
-    // Display songs with optional search filtering
     function displaySongs(songs) {
       const filter = searchInput.value.toLowerCase();
       songsContainer.innerHTML = '';
-      songs.forEach((song, index) => {
+      songs.forEach((song, i) => {
         if (song.title.toLowerCase().includes(filter)) {
           const songDiv = document.createElement('div');
           songDiv.classList.add('song');
+          songDiv.dataset.index = i;
           songDiv.textContent = song.title;
-          songDiv.dataset.index = index;
-          songDiv.addEventListener('click', () => {
-            playSong(index);
-          });
+          songDiv.addEventListener('click', () => playSong(i));
           songsContainer.appendChild(songDiv);
         }
       });
     }
   
-    // Play a selected song
     function playSong(index) {
       if (!currentAlbum) return;
       currentSongIndex = index;
@@ -92,11 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.src = song.file;
       audio.play();
       nowPlayingElem.textContent = `Now Playing: ${song.title} from ${currentAlbum.name}`;
+      songTitleDisplay.textContent = song.title; // bottom bar
       playBtn.textContent = 'Pause';
       updateSongHighlight();
     }
   
-    // Highlight the currently playing song in the list
     function updateSongHighlight() {
       const songDivs = document.querySelectorAll('.song');
       songDivs.forEach(div => {
@@ -108,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   
-    // Control button events
+    // Controls
     playBtn.addEventListener('click', () => {
       if (audio.paused) {
         audio.play();
@@ -122,38 +125,55 @@ document.addEventListener('DOMContentLoaded', () => {
     prevBtn.addEventListener('click', playPrevious);
     nextBtn.addEventListener('click', playNext);
   
-    shuffleBtn.addEventListener('click', () => {
-      shuffle = !shuffle;
-      shuffleBtn.textContent = shuffle ? 'Shuffle On' : 'Shuffle Off';
+    // Shuffle/Repeat checkboxes
+    shuffleCheckbox.addEventListener('change', () => {
+      shuffleEnabled = shuffleCheckbox.checked;
+    });
+    repeatCheckbox.addEventListener('change', () => {
+      repeatEnabled = repeatCheckbox.checked;
     });
   
-    // Cycle repeat modes: off -> all -> one -> off...
-    repeatBtn.addEventListener('click', () => {
-      if (repeatMode === "off") {
-        repeatMode = "all";
-        repeatBtn.textContent = 'Repeat All';
-      } else if (repeatMode === "all") {
-        repeatMode = "one";
-        repeatBtn.textContent = 'Repeat One';
-      } else {
-        repeatMode = "off";
-        repeatBtn.textContent = 'Repeat Off';
-      }
+    // 10s skip
+    forwardBtn.addEventListener('click', () => {
+      audio.currentTime = Math.min(audio.currentTime + 10, audio.duration);
+    });
+    backwardBtn.addEventListener('click', () => {
+      audio.currentTime = Math.max(audio.currentTime - 10, 0);
     });
   
-    // When the audio ends, decide what to do next based on repeat mode
+    // Progress bar events
+    audio.addEventListener('loadedmetadata', () => {
+      progressBar.max = audio.duration || 0;
+      durationSpan.textContent = formatTime(audio.duration);
+    });
+  
+    audio.addEventListener('timeupdate', () => {
+      progressBar.value = audio.currentTime;
+      currentTimeSpan.textContent = formatTime(audio.currentTime);
+    });
+  
+    progressBar.addEventListener('input', () => {
+      audio.currentTime = progressBar.value;
+    });
+  
+    // When song ends, handle repeat/shuffle
     audio.addEventListener('ended', () => {
-      if (repeatMode === "one") {
+      if (repeatEnabled) {
+        // "Repeat One" style: replay same track
         audio.currentTime = 0;
         audio.play();
       } else {
+        // "Repeat All" style is typically separate,
+        // but let's keep it simple:
         playNext();
       }
     });
   
-    // Keyboard shortcuts (avoid interfering with text inputs)
+    // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
+      // Avoid interfering with text input
       if (e.target.tagName.toLowerCase() === 'input') return;
+  
       switch (e.code) {
         case 'Space':
           e.preventDefault();
@@ -171,74 +191,56 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'ArrowLeft':
           playPrevious();
           break;
-        case 'KeyS':
-          shuffle = !shuffle;
-          shuffleBtn.textContent = shuffle ? 'Shuffle On' : 'Shuffle Off';
-          break;
-        case 'KeyR':
-          if (repeatMode === "off") {
-            repeatMode = "all";
-            repeatBtn.textContent = 'Repeat All';
-          } else if (repeatMode === "all") {
-            repeatMode = "one";
-            repeatBtn.textContent = 'Repeat One';
-          } else {
-            repeatMode = "off";
-            repeatBtn.textContent = 'Repeat Off';
-          }
-          break;
         default:
           break;
       }
     });
   
-    // Update song list based on search query
+    // Filter songs
     searchInput.addEventListener('input', () => {
       if (currentAlbum) {
         displaySongs(currentAlbum.songs);
       }
     });
   
-    // Function to play the next song
     function playNext() {
       if (!currentAlbum) return;
       let nextIndex;
-      if (shuffle) {
+      if (shuffleEnabled) {
         nextIndex = Math.floor(Math.random() * currentAlbum.songs.length);
       } else {
         nextIndex = currentSongIndex + 1;
         if (nextIndex >= currentAlbum.songs.length) {
-          if (repeatMode === "all") {
-            nextIndex = 0;
-          } else {
-            // End of album—do nothing if repeat is off
-            return;
-          }
+          // Wrap around if you want "Repeat All" style
+          nextIndex = 0;
         }
       }
       playSong(nextIndex);
     }
   
-    // Function to play the previous song
     function playPrevious() {
       if (!currentAlbum) return;
       let prevIndex;
-      if (shuffle) {
+      if (shuffleEnabled) {
         prevIndex = Math.floor(Math.random() * currentAlbum.songs.length);
       } else {
         prevIndex = currentSongIndex - 1;
         if (prevIndex < 0) {
-          if (repeatMode === "all") {
-            prevIndex = currentAlbum.songs.length - 1;
-          } else {
-            return;
-          }
+          // Wrap around if you want "Repeat All"
+          prevIndex = currentAlbum.songs.length - 1;
         }
       }
       playSong(prevIndex);
     }
   
-    // Toggle light/dark theme
+    function formatTime(sec) {
+      if (!sec || isNaN(sec)) return "0:00";
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+  
+    // Theme toggle
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('dark-theme');
     });

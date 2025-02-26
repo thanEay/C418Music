@@ -1,162 +1,148 @@
-/* Base Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
-  
-  header {
-    background-color: #444;
-    color: #fff;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  header h1 {
-    margin: 0;
-  }
-  
-  #theme-toggle {
-    cursor: pointer;
-    background-color: #666;
-    padding: 5px 10px;
-    border-radius: 5px;
-  }
-  
-  main {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px;
-  }
-  
-  section {
-    flex: 1 1 300px;
-    margin: 10px;
-  }
-  
-  #albums-container, #songs-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  /* Album Styles */
-  .album {
-    width: 150px;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-    background-color: #fff;
-  }
-  
-  .album img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .album-name {
-    padding: 5px;
-    font-size: 14px;
-  }
-  
-  /* Song Styles */
-  .song {
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-  }
-  
-  .song.active {
-    background-color: #ddd;
-  }
-  
-  /* Player Controls */
-  #controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  button {
-    padding: 8px 12px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: #444;
-    color: #fff;
-  }
-  
-  button:hover {
-    background-color: #666;
-  }
-  
-  /* Dark Theme Styles */
-  body.dark-theme {
-    background-color: #222;
-    color: #eee;
-  }
-  
-  body.dark-theme header {
-    background-color: #333;
-  }
-  
-  body.dark-theme .album {
-    background-color: #333;
-    border-color: #555;
-  }
-  
-  body.dark-theme .song {
-    border-bottom: 1px solid #555;
-  }
-  
-  body.dark-theme .song.active {
-    background-color: #555;
-  }
-  
-  body.dark-theme button {
-    background-color: #666;
-  }
-  
-  body.dark-theme button:hover {
-    background-color: #888;
-  }
-  /* Existing styles remain unchanged... */
+/* Default dark theme. */
+body.dark-theme {
+  background-color: #222;
+  color: #eee;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-/* Progress Bar Section */
+/* If you want a light theme, just remove .dark-theme or toggle it with JS. */
+body:not(.dark-theme) {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+/* Albums and songs layout */
+main {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+section {
+  flex: 1 1 300px;
+  margin: 10px;
+}
+
+#albums-container, #songs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.album {
+  width: 150px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #333;
+  overflow: hidden;
+}
+
+.album img {
+  width: 100%;
+  height: auto;
+}
+
+.album-name {
+  padding: 5px;
+  font-size: 14px;
+}
+
+.song {
+  padding: 8px;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+}
+
+.song.active {
+  background-color: #555;
+}
+
+/* Player controls */
+#player-section {
+  margin-top: 20px;
+}
+
+#controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#toggles {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #666;
+  color: #fff;
+}
+
+button:hover {
+  background-color: #888;
+}
+
+/* Progress bar at bottom */
 #progress-section {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #444;
-    color: #fff;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  #progress-section #song-title {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  #progress-bar-wrapper {
-    display: flex;
-    align-items: center;
-    width: 80%;
-  }
-  
-  #progress-bar {
-    flex: 1;
-    margin: 0 10px;
-  }
-  
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#progress-controls {
+  margin-bottom: 5px;
+}
+
+#song-title {
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#progress-bar-wrapper {
+  display: flex;
+  align-items: center;
+  width: 80%;
+}
+
+#progress-bar {
+  flex: 1;
+  margin: 0 10px;
+}
+
+#current-time,
+#duration {
+  width: 40px;
+  text-align: center;
+}

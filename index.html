@@ -1,49 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>C418 Music Player</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="dark-theme"> <!-- Start in dark mode by default -->
   <header>
     <h1>C418 Music Player</h1>
-    <div id="theme-toggle">Toggle Theme</div>
+    <!-- This toggle can still exist if you want manual switching. 
+         Or remove it if you want permanent dark mode. -->
+    <button id="theme-toggle">Toggle Theme</button>
   </header>
+
   <main>
     <section id="albums-section">
       <h2>Albums</h2>
       <div id="albums-container"></div>
     </section>
+
     <section id="songs-section">
       <h2 id="album-title">Select an album</h2>
-      <input type="text" id="search" placeholder="Search songs...">
+      <input type="text" id="search" placeholder="Search songs..." />
       <div id="songs-container"></div>
     </section>
+
     <section id="player-section">
       <div id="now-playing">Nothing playing</div>
       <audio id="audio"></audio>
+
       <div id="controls">
         <button id="prev-btn">Prev</button>
         <button id="play-btn">Play</button>
         <button id="next-btn">Next</button>
-        <button id="shuffle-btn">Shuffle Off</button>
-        <button id="repeat-btn">Repeat Off</button>
+      </div>
+
+      <!-- Shuffle/Repeat checkboxes -->
+      <div id="toggles">
+        <label>
+          <input type="checkbox" id="shuffle-checkbox" />
+          Shuffle
+        </label>
+        <label>
+          <input type="checkbox" id="repeat-checkbox" />
+          Repeat
+        </label>
       </div>
     </section>
   </main>
-  
-  <!-- Progress Bar Section fixed at the bottom -->
+
+  <!-- Progress bar section at bottom -->
   <section id="progress-section">
+    <div id="progress-controls">
+      <!-- 10s backward/forward -->
+      <button id="backward-btn">-10s</button>
+      <button id="forward-btn">+10s</button>
+    </div>
     <div id="song-title">No song playing</div>
     <div id="progress-bar-wrapper">
       <span id="current-time">0:00</span>
-      <input type="range" id="progress-bar" min="0" value="0">
+      <input type="range" id="progress-bar" min="0" value="0" />
       <span id="duration">0:00</span>
     </div>
   </section>
-  
+
   <script src="script.js"></script>
 </body>
 </html>
