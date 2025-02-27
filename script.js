@@ -32,13 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const forwardBtn = document.getElementById('forward-btn');
     const backwardBtn = document.getElementById('backward-btn');
   
-    // If the Python script already stripped leading numbers, you may not need this.
-    // But if your JSON might still have them, here's a fallback.
-    function cleanSongTitle(title) {
-      return title.replace(/^\d+\s*[\-\.]?\s*/, '').trim();
-    }
-  
-    // Fetch the manifest
+    // Load manifest.json
     fetch('manifest.json')
       .then(response => response.json())
       .then(data => {
@@ -62,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
         const nameDiv = document.createElement('div');
         nameDiv.classList.add('album-name');
-        nameDiv.textContent = album.name; // Already cleaned in Python
+        nameDiv.textContent = album.name;
   
         albumDiv.appendChild(img);
         albumDiv.appendChild(nameDiv);
@@ -83,13 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const filter = searchInput.value.toLowerCase();
       songsContainer.innerHTML = '';
       songs.forEach((song, i) => {
-        // If there's leftover numbering, remove it
-        const displayTitle = cleanSongTitle(song.title);
-        if (displayTitle.toLowerCase().includes(filter)) {
+        if (song.title.toLowerCase().includes(filter)) {
           const songDiv = document.createElement('div');
           songDiv.classList.add('song');
           songDiv.dataset.index = i;
-          songDiv.textContent = displayTitle;
+          songDiv.textContent = song.title;
           songDiv.addEventListener('click', () => playSong(i));
           songsContainer.appendChild(songDiv);
         }
@@ -100,12 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!currentAlbum) return;
       currentSongIndex = index;
       const song = currentAlbum.songs[currentSongIndex];
-      const displayTitle = cleanSongTitle(song.title);
-  
       audio.src = song.file;
       audio.play();
-      nowPlayingElem.textContent = `Now Playing: ${displayTitle} from ${currentAlbum.name}`;
-      songTitleDisplay.textContent = displayTitle; // bottom bar
+      nowPlayingElem.textContent = `Now Playing: ${song.title} from ${currentAlbum.name}`;
+      songTitleDisplay.textContent = song.title; // bottom bar
       playBtn.textContent = 'Pause';
       updateSongHighlight();
     }
@@ -145,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // 10s skip
     forwardBtn.addEventListener('click', () => {
-      audio.currentTime = Math.min(audio.currentTime + 10, audio.duration || 0);
+      audio.currentTime = Math.min(audio.currentTime + 10, audio.duration);
     });
     backwardBtn.addEventListener('click', () => {
       audio.currentTime = Math.max(audio.currentTime - 10, 0);
@@ -166,20 +156,23 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.currentTime = progressBar.value;
     });
   
-    // End of track => handle repeat or next
+    // When song ends, handle repeat/shuffle
     audio.addEventListener('ended', () => {
       if (repeatEnabled) {
-        // "Repeat One"
+        // "Repeat One" style: replay same track
         audio.currentTime = 0;
         audio.play();
       } else {
+        // "Repeat All" style is typically separate,
+        // but let's keep it simple:
         playNext();
       }
     });
   
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
-      if (e.target.tagName.toLowerCase() === 'input') return; // skip if typing in search
+      // Avoid interfering with text input
+      if (e.target.tagName.toLowerCase() === 'input') return;
   
       switch (e.code) {
         case 'Space':
@@ -218,7 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         nextIndex = currentSongIndex + 1;
         if (nextIndex >= currentAlbum.songs.length) {
-          nextIndex = 0; // wrap around
+          // Wrap around if you want "Repeat All" style
+          nextIndex = 0;
         }
       }
       playSong(nextIndex);
@@ -232,7 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         prevIndex = currentSongIndex - 1;
         if (prevIndex < 0) {
-          prevIndex = currentAlbum.songs.length - 1; // wrap around
+          // Wrap around if you want "Repeat All"
+          prevIndex = currentAlbum.songs.length - 1;
         }
       }
       playSong(prevIndex);

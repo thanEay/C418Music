@@ -9,11 +9,12 @@
 <body class="dark-theme"> <!-- Start in dark mode by default -->
   <header>
     <h1>C418 Music Player</h1>
-    <!-- Theme toggle if you want to switch from dark to light -->
+    <!-- This toggle can still exist if you want manual switching. 
+         Or remove it if you want permanent dark mode. -->
     <button id="theme-toggle">Toggle Theme</button>
   </header>
 
-  <div id="main-container">
+  <main>
     <section id="albums-section">
       <h2>Albums</h2>
       <div id="albums-container"></div>
@@ -22,34 +23,37 @@
     <section id="songs-section">
       <h2 id="album-title">Select an album</h2>
       <input type="text" id="search" placeholder="Search songs..." />
-
       <div id="songs-container"></div>
+    </section>
 
-      <div id="player-section">
-        <div id="now-playing">Nothing playing</div>
-        <audio id="audio"></audio>
-        <div id="controls">
-          <button id="prev-btn">Prev</button>
-          <button id="play-btn">Play</button>
-          <button id="next-btn">Next</button>
-        </div>
-        <div id="toggles">
-          <label>
-            <input type="checkbox" id="shuffle-checkbox" />
-            Shuffle
-          </label>
-          <label>
-            <input type="checkbox" id="repeat-checkbox" />
-            Repeat
-          </label>
-        </div>
+    <section id="player-section">
+      <div id="now-playing">Nothing playing</div>
+      <audio id="audio"></audio>
+
+      <div id="controls">
+        <button id="prev-btn">Prev</button>
+        <button id="play-btn">Play</button>
+        <button id="next-btn">Next</button>
+      </div>
+
+      <!-- Shuffle/Repeat checkboxes -->
+      <div id="toggles">
+        <label>
+          <input type="checkbox" id="shuffle-checkbox" />
+          Shuffle
+        </label>
+        <label>
+          <input type="checkbox" id="repeat-checkbox" />
+          Repeat
+        </label>
       </div>
     </section>
-  </div>
+  </main>
 
-  <!-- Progress bar pinned to the bottom of the screen -->
+  <!-- Progress bar section at bottom -->
   <section id="progress-section">
     <div id="progress-controls">
+      <!-- 10s backward/forward -->
       <button id="backward-btn">-10s</button>
       <button id="forward-btn">+10s</button>
     </div>
