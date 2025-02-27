@@ -1,56 +1,64 @@
 import os
 import json
-import mutagen
-from mutagen.easyid3 import EasyID3
+from mutagen.mp3 import MP3
+from mutagen.id3 import ID3, TIT2, TRCK
 
-C418_DIR = "C418"
+# Get the script's directory (repo root)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Define the base directory containing albums
+BASE_DIR = os.path.join(SCRIPT_DIR, "C418")
+
+# Path to manifest.json in the repo root
+MANIFEST_PATH = os.path.join(SCRIPT_DIR, "manifest.json")
+
+# Delete existing manifest.json if it exists
+if os.path.exists(MANIFEST_PATH):
+    os.remove(MANIFEST_PATH)
+
+# Scan for albums and songs
 manifest = {"albums": []}
 
-# Iterate through each album folder in C418/
-for album_folder in sorted(os.listdir(C418_DIR)):
-    album_path = os.path.join(C418_DIR, album_folder)
+for album_folder in sorted(os.listdir(BASE_DIR)):
+    album_path = os.path.join(BASE_DIR, album_folder)
+
     if not os.path.isdir(album_path):
-        continue  # skip files if any are in C418/
-    
+        continue  # Skip if not a folder
+
+    # Remove "C418 - " from album name if present
+    album_name = album_folder.replace("C418 - ", "", 1)
+
     album_data = {
-        "name": album_folder,  # e.g. "C418 - 0x10c"
-        "cover": None,
+        "name": album_name,
+        "cover": f"C418/{album_folder}/cover.png",
         "songs": []
     }
 
-    # Look for covers and mp3s
-    for filename in sorted(os.listdir(album_path)):
-        filepath = os.path.join(album_path, filename)
-        
-        # Cover image
-        if filename.lower().startswith("cover") and filename.lower().endswith((".png", ".jpg")):
-            album_data["cover"] = os.path.join(C418_DIR, album_folder, filename)
-        
-        # MP3 files
-        elif filename.lower().endswith(".mp3"):
-            full_mp3_path = os.path.join(C418_DIR, album_folder, filename)
+    for song_file in sorted(os.listdir(album_path)):
+        if song_file.lower().endswith(".mp3"):
+            song_path = os.path.join(album_path, song_file)
 
-            # Attempt to read ID3 tags for a title
-            song_title = filename.replace(".mp3", "")  # fallback
+            # Extract metadata
             try:
-                audio = mutagen.File(filepath, easy=True)
-                # If there's a title tag, use it
-                if audio and "title" in audio:
-                    song_title = audio["title"][0]
+                audio = MP3(song_path, ID3=ID3)
+                title = audio.tags.get("TIT2", TIT2(encoding=3, text=os.path.splitext(song_file)[0])).text[0]
+                track = audio.tags.get("TRCK", TRCK(encoding=3, text="0")).text[0]
+                
+                # Remove track numbers from title
+                title = title.lstrip("0123456789.- ")
+
             except Exception:
-                pass  # fallback to filename if reading fails
+                title = os.path.splitext(song_file)[0]  # Fallback to filename
 
             album_data["songs"].append({
-                "title": song_title,
-                "file": full_mp3_path
+                "title": title,
+                "path": f"C418/{album_folder}/{song_file}"
             })
 
-    # Only add the album if it has songs
-    if album_data["songs"]:
-        manifest["albums"].append(album_data)
+    manifest["albums"].append(album_data)
 
-# Write out the manifest
-with open("manifest.json", "w", encoding="utf-8") as f:
-    json.dump(manifest, f, indent=2, ensure_ascii=False)
+# Write the manifest.json file in the repo root
+with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
+    json.dump(manifest, f, indent=4)
 
-print("✅ Manifest generated successfully with ID3-based titles!")
+print("✅ Manifest created successfully at", MANIFEST_PATH)

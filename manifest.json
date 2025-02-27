@@ -1,84 +1,571 @@
 {
-  "albums": [
-    {
-      "name": "C418 - 0x10c",
-      "cover": "C418/C418 - 0x10c/cover.png",
-      "songs": [
+    "albums": [
         {
-          "title": "01 0x10c",
-          "file": "C418/C418 - 0x10c/C418 - 0x10c - 01 0x10c.mp3"
+            "name": "0x10c",
+            "cover": "C418/C418 - 0x10c/cover.png",
+            "songs": [
+                {
+                    "title": "x10c",
+                    "path": "C418/C418 - 0x10c/C418 - 0x10c - 01 0x10c.mp3"
+                },
+                {
+                    "title": "",
+                    "path": "C418/C418 - 0x10c/C418 - 0x10c - 02 0.mp3"
+                }
+            ]
         },
         {
-          "title": "02 0",
-          "file": "C418/C418 - 0x10c/C418 - 0x10c - 02 0.mp3"
+            "name": "2 years of failure",
+            "cover": "C418/C418 - 2 years of failure/cover.png",
+            "songs": [
+                {
+                    "title": "s_in",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 01 90s_in.mp3"
+                },
+                {
+                    "title": "s_tripverse",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 02 90s_tripverse.mp3"
+                },
+                {
+                    "title": "s_ani",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 03 90s_ani.mp3"
+                },
+                {
+                    "title": "s_management",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 04 90s_management.mp3"
+                },
+                {
+                    "title": "s_nostress",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 05 90s_nostress.mp3"
+                },
+                {
+                    "title": "s_out",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 06 90s_out.mp3"
+                },
+                {
+                    "title": "pizza",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 07 pizza.mp3"
+                },
+                {
+                    "title": "house_loneliness",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 08 house_loneliness.mp3"
+                },
+                {
+                    "title": "choice_broken",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 09 choice_broken.mp3"
+                },
+                {
+                    "title": "cr1_meadow",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 10 cr1_meadow.mp3"
+                },
+                {
+                    "title": "cr2_finl",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 11 cr2_finl.mp3"
+                },
+                {
+                    "title": "_pre",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 12 185_pre.mp3"
+                },
+                {
+                    "title": "egoismus_2016edit",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 13 egoismus_2016edit.mp3"
+                },
+                {
+                    "title": "kaneda",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 14 kaneda.mp3"
+                },
+                {
+                    "title": "stranger_think",
+                    "path": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 15 stranger_think.mp3"
+                }
+            ]
+        },
+        {
+            "name": "Bushes and Marshmallows",
+            "cover": "C418/C418 - Bushes and Marshmallows/cover.png",
+            "songs": [
+                {
+                    "title": "I apologize",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 01 I apologize.mp3"
+                },
+                {
+                    "title": "Incredible",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 02 Incredible.mp3"
+                },
+                {
+                    "title": "Unreasonable",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 03 Unreasonable.mp3"
+                },
+                {
+                    "title": "Question",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 04 Question.mp3"
+                },
+                {
+                    "title": "I believe I can fly",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 05 I believe I can fly.mp3"
+                },
+                {
+                    "title": "Yes",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 06 Yes.mp3"
+                },
+                {
+                    "title": "Phaos",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 07 Phaos.mp3"
+                },
+                {
+                    "title": "Boygames",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 08 Boygames.mp3"
+                },
+                {
+                    "title": "Monkey Park",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 09 Monkey Park.mp3"
+                },
+                {
+                    "title": "Chant",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 10 Chant.mp3"
+                },
+                {
+                    "title": "Uzick",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 11 Uzick.mp3"
+                },
+                {
+                    "title": "H\u00f6re",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 12 H\u00f6re.mp3"
+                },
+                {
+                    "title": "A big thank you to",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 13 A big thank you to.mp3"
+                },
+                {
+                    "title": "But I love you",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 14 But I love you.mp3"
+                },
+                {
+                    "title": "Turn",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 15 Turn.mp3"
+                },
+                {
+                    "title": "Edward",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 16 Edward.mp3"
+                },
+                {
+                    "title": "What",
+                    "path": "C418/C418 - Bushes and Marshmallows/C418 - Bushes and Marshmallows - 17 What.mp3"
+                }
+            ]
+        },
+        {
+            "name": "Catacomb Snatch Original Soundtrack",
+            "cover": "C418/C418 - Catacomb Snatch Original Soundtrack/cover.png",
+            "songs": []
+        },
+        {
+            "name": "I forgot something- didn't I",
+            "cover": "C418/C418 - I forgot something- didn't I/cover.png",
+            "songs": [
+                {
+                    "title": "The Long-Winded and Painful Death of Sweeney S Greenville",
+                    "path": "C418/C418 - I forgot something- didn't I/C418 - I forgot something, didn't I. - 01 The Long-Winded and Painful Death of Sweeney S Greenville.mp3"
+                },
+                {
+                    "title": "Meatcraft",
+                    "path": "C418/C418 - I forgot something- didn't I/C418 - I forgot something, didn't I. - 02 Meatcraft.mp3"
+                },
+                {
+                    "title": "shit with a twist!",
+                    "path": "C418/C418 - I forgot something- didn't I/C418 - I forgot something, didn't I. - 03 shit with a twist!.mp3"
+                },
+                {
+                    "title": "a game select thing",
+                    "path": "C418/C418 - I forgot something- didn't I/C418 - I forgot something, didn't I. - 04 a game select thing.mp3"
+                },
+                {
+                    "title": "Something loud, old and scary",
+                    "path": "C418/C418 - I forgot something- didn't I/C418 - I forgot something, didn't I. - 05 Something loud, old and scary.mp3"
+                },
+                {
+                    "title": "song that didn't get on the new album #1",
+                    "path": "C418/C418 - I forgot something- didn't I/C418 - I forgot something, didn't I. - 06 song that didn't get on the new album #1.mp3"
+                },
+                {
+                    "title": "song that didn't get on the new album #2",
+                    "path": "C418/C418 - I forgot something- didn't I/C418 - I forgot something, didn't I. - 07 song that didn't get on the new album #2.mp3"
+                },
+                {
+                    "title": "something avant garde and experimental, which could have just been called experimental",
+                    "path": "C418/C418 - I forgot something- didn't I/C418 - I forgot something, didn't I. - 08 something avant garde and experimental, which could have just been called experimental.mp3"
+                },
+                {
+                    "title": "Inappropiate BADWORD Deluxe",
+                    "path": "C418/C418 - I forgot something- didn't I/C418 - I forgot something, didn't I. - 09 Inappropiate BADWORD Deluxe.mp3"
+                }
+            ]
+        },
+        {
+            "name": "Mixes",
+            "cover": "C418/C418 - Mixes/cover.png",
+            "songs": [
+                {
+                    "title": "kids",
+                    "path": "C418/C418 - Mixes/C418 - Mixes - 01 20 kids.mp3"
+                },
+                {
+                    "title": "Confusion",
+                    "path": "C418/C418 - Mixes/C418 - Mixes - 02 Confusion.mp3"
+                },
+                {
+                    "title": "Incredibly detailed acid trip",
+                    "path": "C418/C418 - Mixes/C418 - Mixes - 03 Incredibly detailed acid trip.mp3"
+                },
+                {
+                    "title": "kards",
+                    "path": "C418/C418 - Mixes/C418 - Mixes - 04 20 kards.mp3"
+                },
+                {
+                    "title": "Kitten",
+                    "path": "C418/C418 - Mixes/C418 - Mixes - 05 Kitten.mp3"
+                },
+                {
+                    "title": "Pink",
+                    "path": "C418/C418 - Mixes/C418 - Mixes - 06 Pink.mp3"
+                },
+                {
+                    "title": "Average C418",
+                    "path": "C418/C418 - Mixes/C418 - Mixes - 07 Average C418.mp3"
+                },
+                {
+                    "title": "No but Yes",
+                    "path": "C418/C418 - Mixes/C418 - Mixes - 08 No but Yes.mp3"
+                }
+            ]
+        },
+        {
+            "name": "Seven Years of Server Data",
+            "cover": "C418/C418 - Seven Years of Server Data/cover.png",
+            "songs": [
+                {
+                    "title": "Atempause",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 01 Atempause.mp3"
+                },
+                {
+                    "title": "Vlem",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 02 Vlem.mp3"
+                },
+                {
+                    "title": "The first unfinished song for the Minecraft documentary",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3"
+                },
+                {
+                    "title": "The song I show if someone wants to hear a new Minecraft song",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 06 The song I show if someone wants to hear a new Minecraft song.mp3"
+                },
+                {
+                    "title": "water",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 09 water.mp3"
+                },
+                {
+                    "title": "a fail",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 10 a fail.mp3"
+                },
+                {
+                    "title": "The weirdest remix I ever worked on.",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 11 The weirdest remix I ever worked on..mp3"
+                },
+                {
+                    "title": "Some really obscure ambient tune",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 12 Some really obscure ambient tune.mp3"
+                },
+                {
+                    "title": "komphund",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 13 komphund.mp3"
+                },
+                {
+                    "title": "Not Atlantis",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 14 Not Atlantis.mp3"
+                },
+                {
+                    "title": "Another weird ambient tune.",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3"
+                },
+                {
+                    "title": "sirtet",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 16 sirtet.mp3"
+                },
+                {
+                    "title": "What it would have sounded like if I were to DJ 5 years ago",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 17 What it would have sounded like if I were to DJ 5 years ago.mp3"
+                },
+                {
+                    "title": "Cobalt Something Something",
+                    "path": "C418/C418 - Seven Years of Server Data/C418 - Seven Years of Server Data - 18 Cobalt Something Something.mp3"
+                },
+                {
+                    "title": "BGC418",
+                    "path": "C418/C418 - Seven Years of Server Data/C418, Big Giant Circles - Seven Years of Server Data - 03 BGC418.mp3"
+                },
+                {
+                    "title": "mau5cave",
+                    "path": "C418/C418 - Seven Years of Server Data/C418, Deadmau5 - Seven Years of Server Data - 04 mau5cave.mp3"
+                },
+                {
+                    "title": "Tonic (C418's \"I use this in my set\" remix)",
+                    "path": "C418/C418 - Seven Years of Server Data/Lusine Icl - Seven Years of Server Data - 07 Tonic (C418's -I use this in my set- remix).mp3"
+                },
+                {
+                    "title": "Lemons (C418's \"I want this to be a complete song\" mix)",
+                    "path": "C418/C418 - Seven Years of Server Data/Weebl - Seven Years of Server Data - 08 Lemons (C418's -I want this to be a complete song- mix).mp3"
+                }
+            ]
+        },
+        {
+            "name": "bps",
+            "cover": "C418/C418 - bps/cover.png",
+            "songs": [
+                {
+                    "title": "aeiouw",
+                    "path": "C418/C418 - bps/C418 - bps - 01 aeiouw.mp3"
+                },
+                {
+                    "title": "flu",
+                    "path": "C418/C418 - bps/C418 - bps - 02 flu.mp3"
+                },
+                {
+                    "title": "det",
+                    "path": "C418/C418 - bps/C418 - bps - 03 det.mp3"
+                },
+                {
+                    "title": "yeh",
+                    "path": "C418/C418 - bps/C418 - bps - 04 yeh.mp3"
+                }
+            ]
+        },
+        {
+            "name": "circle",
+            "cover": "C418/C418 - circle/cover.png",
+            "songs": [
+                {
+                    "title": "sleepless",
+                    "path": "C418/C418 - circle/C418 - circle - 01 sleepless.mp3"
+                },
+                {
+                    "title": "deldee",
+                    "path": "C418/C418 - circle/C418 - circle - 02 deldee.mp3"
+                },
+                {
+                    "title": "minimal",
+                    "path": "C418/C418 - circle/C418 - circle - 03 minimal.mp3"
+                },
+                {
+                    "title": "love",
+                    "path": "C418/C418 - circle/C418 - circle - 04 love.mp3"
+                },
+                {
+                    "title": "subtle cupcake rhythms",
+                    "path": "C418/C418 - circle/C418 - circle - 05 subtle cupcake rhythms.mp3"
+                },
+                {
+                    "title": "depado",
+                    "path": "C418/C418 - circle/C418 - circle - 06 depado.mp3"
+                }
+            ]
+        },
+        {
+            "name": "little things",
+            "cover": "C418/C418 - little things/cover.png",
+            "songs": [
+                {
+                    "title": "kaffee",
+                    "path": "C418/C418 - little things/C418 - little things - 01 kaffee.mp3"
+                },
+                {
+                    "title": "bummer",
+                    "path": "C418/C418 - little things/C418 - little things - 02 bummer.mp3"
+                },
+                {
+                    "title": "peanuts",
+                    "path": "C418/C418 - little things/C418 - little things - 03 peanuts.mp3"
+                },
+                {
+                    "title": "familiar faces",
+                    "path": "C418/C418 - little things/C418 - little things - 04 familiar faces.mp3"
+                },
+                {
+                    "title": "it's complicated",
+                    "path": "C418/C418 - little things/C418 - little things - 05 it's complicated.mp3"
+                },
+                {
+                    "title": "hotel music",
+                    "path": "C418/C418 - little things/C418 - little things - 06 hotel music.mp3"
+                },
+                {
+                    "title": "repetition",
+                    "path": "C418/C418 - little things/C418 - little things - 07 repetition.mp3"
+                },
+                {
+                    "title": "sod",
+                    "path": "C418/C418 - little things/C418 - little things - 08 sod.mp3"
+                },
+                {
+                    "title": "heyhey",
+                    "path": "C418/C418 - little things/C418 - little things - 09 heyhey.mp3"
+                }
+            ]
+        },
+        {
+            "name": "sine",
+            "cover": "C418/C418 - sine/cover.png",
+            "songs": [
+                {
+                    "title": "test",
+                    "path": "C418/C418 - sine/C418 - sine - 01 test.mp3"
+                },
+                {
+                    "title": "headache",
+                    "path": "C418/C418 - sine/C418 - sine - 02 headache.mp3"
+                },
+                {
+                    "title": "no",
+                    "path": "C418/C418 - sine/C418 - sine - 03 no.mp3"
+                },
+                {
+                    "title": "jacke",
+                    "path": "C418/C418 - sine/C418 - sine - 04 jacke.mp3"
+                }
+            ]
+        },
+        {
+            "name": "zweitonegoismus",
+            "cover": "C418/C418 - zweitonegoismus/cover.png",
+            "songs": [
+                {
+                    "title": "zweiton",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 01 zweiton.mp3"
+                },
+                {
+                    "title": "egoismus",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 02 egoismus.mp3"
+                },
+                {
+                    "title": "einfallslos",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 03 einfallslos.mp3"
+                },
+                {
+                    "title": "kopfmusik",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 04 kopfmusik.mp3"
+                },
+                {
+                    "title": "phlips",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 05 phlips.mp3"
+                },
+                {
+                    "title": "krank",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 06 krank.mp3"
+                },
+                {
+                    "title": "phleps",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 07 phleps.mp3"
+                },
+                {
+                    "title": "sand",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 08 sand.mp3"
+                },
+                {
+                    "title": "anthem",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 09 anthem.mp3"
+                },
+                {
+                    "title": "plastik",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 10 plastik.mp3"
+                },
+                {
+                    "title": "ritalin",
+                    "path": "C418/C418 - zweitonegoismus/C418 - zweitonegoismus - 11 ritalin.mp3"
+                }
+            ]
+        },
+        {
+            "name": "anosou- Catacomb Snatch Original Soundtrack",
+            "cover": "C418/anosou- C418 - Catacomb Snatch Original Soundtrack/cover.png",
+            "songs": [
+                {
+                    "title": "Theme",
+                    "path": "C418/anosou- C418 - Catacomb Snatch Original Soundtrack/C418 - Catacomb Snatch Original Soundtrack - 01 Theme.mp3"
+                },
+                {
+                    "title": "Enforcer Brittanica",
+                    "path": "C418/anosou- C418 - Catacomb Snatch Original Soundtrack/C418 - Catacomb Snatch Original Soundtrack - 03 Enforcer Brittanica.mp3"
+                },
+                {
+                    "title": "Dune Storm",
+                    "path": "C418/anosou- C418 - Catacomb Snatch Original Soundtrack/C418 - Catacomb Snatch Original Soundtrack - 05 Dune Storm.mp3"
+                },
+                {
+                    "title": "Mummyf---er",
+                    "path": "C418/anosou- C418 - Catacomb Snatch Original Soundtrack/anosou - Catacomb Snatch Original Soundtrack - 02 Mummyf-er.mp3"
+                },
+                {
+                    "title": "Scarab's Gold",
+                    "path": "C418/anosou- C418 - Catacomb Snatch Original Soundtrack/anosou - Catacomb Snatch Original Soundtrack - 04 Scarab's Gold.mp3"
+                },
+                {
+                    "title": "Ending",
+                    "path": "C418/anosou- C418 - Catacomb Snatch Original Soundtrack/anosou - Catacomb Snatch Original Soundtrack - 06 Ending.mp3"
+                }
+            ]
+        },
+        {
+            "name": "smn and A Cobblers Tee Thug",
+            "cover": "C418/smn and C418 - A Cobblers Tee Thug/cover.png",
+            "songs": [
+                {
+                    "title": "klack",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 01 klack.mp3"
+                },
+                {
+                    "title": "drood",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 02 drood.mp3"
+                },
+                {
+                    "title": "waylong",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 03 waylong.mp3"
+                },
+                {
+                    "title": "acid",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 04 acid.mp3"
+                },
+                {
+                    "title": "hop",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 05 hop.mp3"
+                },
+                {
+                    "title": "dish",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 06 dish.mp3"
+                },
+                {
+                    "title": "sound",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 07 sound.mp3"
+                },
+                {
+                    "title": "goltra",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 08 goltra.mp3"
+                },
+                {
+                    "title": "crowdpleaser",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 09 crowdpleaser.mp3"
+                },
+                {
+                    "title": "shit",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 10 shit.mp3"
+                },
+                {
+                    "title": "test",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 11 test.mp3"
+                },
+                {
+                    "title": "bai",
+                    "path": "C418/smn and C418 - A Cobblers Tee Thug/smn and C418 - A Cobblers Tee Thug - 12 bai.mp3"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "C418 - 2 years of failure",
-      "cover": "C418/C418 - 2 years of failure/cover.png",
-      "songs": [
-        {
-          "title": "01 90s_in",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 01 90s_in.mp3"
-        },
-        {
-          "title": "02 90s_tripverse",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 02 90s_tripverse.mp3"
-        },
-        {
-          "title": "03 90s_ani",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 03 90s_ani.mp3"
-        },
-        {
-          "title": "04 90s_management",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 04 90s_management.mp3"
-        },
-        {
-          "title": "05 90s_nostress",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 05 90s_nostress.mp3"
-        },
-        {
-          "title": "06 90s_out",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 06 90s_out.mp3"
-        },
-        {
-          "title": "07 pizza",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 07 pizza.mp3"
-        },
-        {
-          "title": "08 house_loneliness",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 08 house_loneliness.mp3"
-        },
-        {
-          "title": "09 choice_broken",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 09 choice_broken.mp3"
-        },
-        {
-          "title": "10 cr1_meadow",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 10 cr1_meadow.mp3"
-        },
-        {
-          "title": "11 cr2_finl",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 11 cr2_finl.mp3"
-        },
-        {
-          "title": "12 185_pre",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 12 185_pre.mp3"
-        },
-        {
-          "title": "13 egoismus_2016edit",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 13 egoismus_2016edit.mp3"
-        },
-        {
-          "title": "14 kaneda",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 14 kaneda.mp3"
-        },
-        {
-          "title": "15 stranger_think",
-          "file": "C418/C418 - 2 years of failure/C418 - 2 years of failure - 15 stranger_think.mp3"
-        }
-      ]
-    }
-  ]
+    ]
 }
