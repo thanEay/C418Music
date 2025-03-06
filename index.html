@@ -1,70 +1,741 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C418 Music Player</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-color: #121212;
+      --bg-lighter: #1a1a1a;
+      --bg-lightest: #282828;
+      --text-color: #f5f5f5;
+      --text-secondary: #b3b3b3;
+      --accent-color: #1DB954;
+      --album-width: 160px;
+      --album-height: 180px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    
+    .album-list {
+      width: 400px;
+      background-color: var(--bg-lighter);
+      padding: 20px;
+      overflow-y: auto;
+      border-right: 1px solid #333;
+    }
+    
+    .album-header {
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .albums {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .album {
+      width: 160px;
+      height: 200px;
+      border-radius: 5px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--bg-lightest);
+    }
+    
+    .album:hover {
+      transform: scale(1.05);
+    }
+    
+    .album-cover {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    
+    .album-title {
+      padding: 8px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px;
+    }
+    
+    .album.selected {
+      box-shadow: 0 0 0 2px var(--accent-color);
+    }
+    
+    .song-list {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .current-album {
+      display: flex;
+      margin-bottom: 30px;
+    }
+    
+    .current-album-cover {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    
+    .current-album-info {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .current-album-title {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .songs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .songs-table th, .songs-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+    }
+    
+    .songs-table th {
+      color: var(--text-secondary);
+      font-weight: normal;
+    }
+    
+    .songs-table tr:hover {
+      background-color: var(--bg-lighter);
+      cursor: pointer;
+    }
+    
+    .songs-table tr.playing {
+      background-color: var(--bg-lightest);
+      color: var(--accent-color);
+    }
+    
+    .songs-table td:first-child {
+      width: 40px;
+      text-align: center;
+    }
+    
+    .songs-table td:last-child {
+      text-align: right;
+    }
+    
+    .player {
+      height: 90px;
+      background-color: var(--bg-lighter);
+      border-top: 1px solid #333;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .now-playing {
+      display: flex;
+      align-items: center;
+      width: 30%;
+    }
+    
+    .now-playing-cover {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 3px;
+      margin-right: 15px;
+    }
+    
+    .now-playing-info {
+      width: calc(100% - 75px);
+    }
+    
+    .now-playing-title, .now-playing-artist {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .now-playing-title {
+      margin-bottom: 5px;
+    }
+    
+    .now-playing-artist {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    
+    .controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .control-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    
+    .control-button {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 16px;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .control-button:hover {
+      color: var(--accent-color);
+    }
+    
+    .control-button.main {
+      font-size: 32px;
+    }
+    
+    .control-button.toggle {
+      color: var(--text-secondary);
+    }
+    
+    .control-button.toggle.active {
+      color: var(--accent-color);
+    }
+    
+    .progress-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+    
+    .time {
+      font-size: 12px;
+      color: var(--text-secondary);
+      width: 45px;
+      text-align: center;
+    }
+    
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      background-color: #555;
+      border-radius: 2px;
+      cursor: pointer;
+      margin: 0 10px;
+      position: relative;
+    }
+    
+    .progress {
+      height: 100%;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+      width: 0;
+    }
+    
+    .progress-handle {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+      margin-left: -6px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    
+    .progress-bar:hover .progress-handle {
+      opacity: 1;
+    }
+    
+    .volume-control {
+      width: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    
+    .volume-icon {
+      margin-right: 10px;
+      color: var(--text-secondary);
+    }
+    
+    .volume-slider {
+      width: 100px;
+      height: 4px;
+      background-color: #555;
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .volume-level {
+      height: 100%;
+      background-color: var(--text-secondary);
+      border-radius: 2px;
+      width: 70%;
+    }
+
+    
+    
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .album-list {
+        width: 100%;
+        height: 250px;
+        border-right: none;
+        border-bottom: 1px solid #333;
+      }
+      
+      .now-playing {
+        width: 40%;
+      }
+      
+      .volume-control {
+        display: none;
+      }
+    }
+  </style>
 </head>
-<body class="dark-theme"> <!-- Start in dark mode by default -->
-  <header>
-    <h1>C418 Music Player</h1>
-    <!-- This toggle can still exist if you want manual switching. 
-         Or remove it if you want permanent dark mode. -->
-    <button id="theme-toggle">Toggle Theme</button>
-  </header>
-
-  <main>
-    <section id="albums-section">
-      <h2>Albums</h2>
-      <div id="albums-container"></div>
-    </section>
-
-    <section id="songs-section">
-      <h2 id="album-title">Select an album</h2>
-      <input type="text" id="search" placeholder="Search songs..." />
-      <div id="songs-container"></div>
-    </section>
-
-    <section id="player-section">
-      <div id="now-playing">Nothing playing</div>
-      <audio id="audio"></audio>
-
-      <div id="controls">
-        <button id="prev-btn">Prev</button>
-        <button id="play-btn">Play</button>
-        <button id="next-btn">Next</button>
+<body>
+  <div class="container">
+    <div class="album-list">
+      <div class="album-header">Albums</div>
+      <div class="albums" id="albums-container">
+        <!-- Albums will be generated here -->
       </div>
-
-      <!-- Shuffle/Repeat checkboxes -->
-      <div id="toggles">
-        <label>
-          <input type="checkbox" id="shuffle-checkbox" />
-          Shuffle
-        </label>
-        <label>
-          <input type="checkbox" id="repeat-checkbox" />
-          Repeat
-        </label>
+    </div>
+    
+    <div class="song-list" id="song-list-container">
+      <div class="current-album" id="current-album-container">
+        <!-- Current album info will be displayed here -->
       </div>
-    </section>
-  </main>
-
-  <!-- Progress bar section at bottom -->
-  <section id="progress-section">
-    <div id="progress-controls">
-      <!-- 10s backward/forward -->
-      <button id="backward-btn">-10s</button>
-      <button id="forward-btn">+10s</button>
+      <table class="songs-table" id="songs-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody id="songs-body">
+          <!-- Songs will be generated here -->
+        </tbody>
+      </table>
     </div>
-    <div id="song-title">No song playing</div>
-    <div id="progress-bar-wrapper">
-      <span id="current-time">0:00</span>
-      <input type="range" id="progress-bar" min="0" value="0" />
-      <span id="duration">0:00</span>
+  </div>
+  
+  <div class="player">
+    <div class="now-playing" id="now-playing-container">
+      <!-- Now playing info will be displayed here -->
     </div>
-  </section>
-
-  <script src="script.js"></script>
+    
+    <div class="controls">
+      <div class="control-buttons">
+        <button class="control-button toggle" id="shuffle-button">
+          <i class="fas fa-random"></i>
+        </button>
+        <button class="control-button" id="prev-button">
+          <i class="fas fa-step-backward"></i>
+        </button>
+        <button class="control-button main" id="play-button">
+          <i class="fas fa-play"></i>
+        </button>
+        <button class="control-button" id="next-button">
+          <i class="fas fa-step-forward"></i>
+        </button>
+        <button class="control-button toggle" id="repeat-button">
+          <i class="fas fa-redo"></i>
+        </button>
+      </div>
+      
+      <div class="progress-container">
+        <div class="time" id="current-time">0:00</div>
+        <div class="progress-bar" id="progress-bar">
+          <div class="progress" id="progress"></div>
+          <div class="progress-handle" id="progress-handle"></div>
+        </div>
+        <div class="time" id="total-time">0:00</div>
+      </div>
+    </div>
+    
+    <div class="volume-control">
+      <div class="volume-icon">
+        <i class="fas fa-volume-up"></i>
+      </div>
+      <div class="volume-slider">
+        <div class="volume-level"></div>
+      </div>
+    </div>
+  </div>
+  
+  <audio id="audio-player"></audio>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // DOM Elements
+      const albumsContainer = document.getElementById('albums-container');
+      const currentAlbumContainer = document.getElementById('current-album-container');
+      const songListContainer = document.getElementById('song-list-container');
+      const songsBody = document.getElementById('songs-body');
+      const nowPlayingContainer = document.getElementById('now-playing-container');
+      const audioPlayer = document.getElementById('audio-player');
+      const playButton = document.getElementById('play-button');
+      const prevButton = document.getElementById('prev-button');
+      const nextButton = document.getElementById('next-button');
+      const shuffleButton = document.getElementById('shuffle-button');
+      const repeatButton = document.getElementById('repeat-button');
+      const progressBar = document.getElementById('progress-bar');
+      const progress = document.getElementById('progress');
+      const progressHandle = document.getElementById('progress-handle');
+      const currentTimeEl = document.getElementById('current-time');
+      const totalTimeEl = document.getElementById('total-time');
+      
+      // State variables
+      let manifest = null;
+      let currentAlbumIndex = -1;
+      let currentTrackIndex = -1;
+      let isPlaying = false;
+      let isShuffle = false;
+      let isRepeat = false;
+      let playQueue = [];
+      
+      // Load manifest data
+      async function loadManifest() {
+        try {
+          const response = await fetch('manifest.json');
+          manifest = await response.json();
+          renderAlbums();
+        } catch (error) {
+          console.error('Error loading manifest:', error);
+          albumsContainer.innerHTML = `<p>Error loading albums. Please check if manifest.json exists.</p>`;
+        }
+      }
+      
+      // Format time (seconds -> mm:ss)
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+      }
+      
+      // Render albums
+      function renderAlbums() {
+        if (!manifest || !manifest.albums || manifest.albums.length === 0) {
+          albumsContainer.innerHTML = '<p>No albums found.</p>';
+          return;
+        }
+        
+        albumsContainer.innerHTML = manifest.albums.map((album, index) => {
+          const coverSrc = album.cover ? album.cover : 'placeholder.png';
+          return `
+            <div class="album" data-index="${index}">
+              <img class="album-cover" src="${coverSrc}" alt="${album.title}">
+              <div class="album-title">${album.title}</div>
+            </div>
+          `;
+        }).join('');
+        
+        // Add event listeners to albums
+        document.querySelectorAll('.album').forEach(albumEl => {
+          albumEl.addEventListener('click', () => {
+            const albumIndex = parseInt(albumEl.dataset.index);
+            selectAlbum(albumIndex);
+          });
+        });
+        
+        // Select first album by default
+        if (manifest.albums.length > 0) {
+          selectAlbum(0);
+        }
+      }
+      
+      // Select an album
+      function selectAlbum(albumIndex) {
+        // Update selected state
+        document.querySelectorAll('.album').forEach((albumEl, index) => {
+          albumEl.classList.toggle('selected', index === albumIndex);
+        });
+        
+        currentAlbumIndex = albumIndex;
+        const album = manifest.albums[albumIndex];
+        
+        // Render current album info
+        currentAlbumContainer.innerHTML = `
+          <img class="current-album-cover" src="${album.cover || 'placeholder.png'}" alt="${album.title}">
+          <div class="current-album-info">
+            <h1 class="current-album-title">${album.title}</h1>
+            <p>${album.tracks.length} tracks</p>
+          </div>
+        `;
+        
+        // Render tracks
+        renderTracks();
+      }
+      
+      // Render tracks for current album
+      function renderTracks() {
+        if (currentAlbumIndex < 0) return;
+        
+        const album = manifest.albums[currentAlbumIndex];
+        songsBody.innerHTML = album.tracks.map((track, index) => {
+          const isCurrentTrack = currentAlbumIndex === currentAlbumIndex && index === currentTrackIndex;
+          return `
+            <tr class="${isCurrentTrack ? 'playing' : ''}" data-index="${index}">
+              <td>${isCurrentTrack ? '<i class="fas fa-volume-up"></i>' : (index + 1)}</td>
+              <td>${track.title}</td>
+              <td>${formatTime(track.duration)}</td>
+            </tr>
+          `;
+        }).join('');
+        
+        // Add event listeners to tracks
+        document.querySelectorAll('#songs-body tr').forEach(trackEl => {
+          trackEl.addEventListener('click', () => {
+            const trackIndex = parseInt(trackEl.dataset.index);
+            playTrack(trackIndex);
+          });
+        });
+      }
+      
+      // Play a specific track
+      function playTrack(trackIndex) {
+        if (currentAlbumIndex < 0) return;
+        
+        const album = manifest.albums[currentAlbumIndex];
+        const track = album.tracks[trackIndex];
+        
+        // Update state
+        currentTrackIndex = trackIndex;
+        
+        // Update audio source and play
+        audioPlayer.src = track.path;
+        audioPlayer.play()
+          .then(() => {
+            isPlaying = true;
+            updatePlayButton();
+            updateNowPlaying();
+            renderTracks(); // Rerender to highlight current track
+          })
+          .catch(error => {
+            console.error('Error playing track:', error);
+          });
+        
+        // Generate play queue if shuffle is enabled
+        if (isShuffle) {
+          generateShuffleQueue();
+        }
+      }
+      
+      // Update now playing information
+      function updateNowPlaying() {
+        if (currentAlbumIndex < 0 || currentTrackIndex < 0) {
+          nowPlayingContainer.innerHTML = '';
+          return;
+        }
+        
+        const album = manifest.albums[currentAlbumIndex];
+        const track = album.tracks[currentTrackIndex];
+        
+        nowPlayingContainer.innerHTML = `
+          <img class="now-playing-cover" src="${album.cover || 'placeholder.png'}" alt="${album.title}">
+          <div class="now-playing-info">
+            <div class="now-playing-title">${track.title}</div>
+            <div class="now-playing-artist">${track.artist}</div>
+          </div>
+        `;
+      }
+      
+      // Update play button icon
+      function updatePlayButton() {
+        playButton.innerHTML = isPlaying 
+          ? '<i class="fas fa-pause"></i>' 
+          : '<i class="fas fa-play"></i>';
+      }
+      
+      // Play/Pause toggle
+      function togglePlay() {
+        if (currentAlbumIndex < 0 || currentTrackIndex < 0) {
+          // If nothing is playing, play first track of current album
+          if (currentAlbumIndex >= 0 && manifest.albums[currentAlbumIndex].tracks.length > 0) {
+            playTrack(0);
+          }
+          return;
+        }
+        
+        if (isPlaying) {
+          audioPlayer.pause();
+          isPlaying = false;
+        } else {
+          audioPlayer.play();
+          isPlaying = true;
+        }
+        
+        updatePlayButton();
+      }
+      
+      // Play next track
+      function playNext() {
+        if (currentAlbumIndex < 0) return;
+        
+        const album = manifest.albums[currentAlbumIndex];
+        
+        if (isShuffle && playQueue.length > 0) {
+          // Play from shuffle queue
+          const nextTrackIndex = playQueue.shift();
+          playTrack(nextTrackIndex);
+        } else {
+          // Play next track sequentially
+          const nextTrackIndex = (currentTrackIndex + 1) % album.tracks.length;
+          playTrack(nextTrackIndex);
+        }
+      }
+      
+      // Play previous track
+      function playPrevious() {
+        if (currentAlbumIndex < 0) return;
+        
+        const album = manifest.albums[currentAlbumIndex];
+        
+        // If current time > 3 seconds, restart current track
+        if (audioPlayer.currentTime > 3) {
+          audioPlayer.currentTime = 0;
+          return;
+        }
+        
+        // Otherwise play previous track
+        let prevTrackIndex = currentTrackIndex - 1;
+        if (prevTrackIndex < 0) {
+          prevTrackIndex = album.tracks.length - 1;
+        }
+        
+        playTrack(prevTrackIndex);
+      }
+      
+      // Toggle shuffle mode
+      function toggleShuffle() {
+        isShuffle = !isShuffle;
+        shuffleButton.classList.toggle('active', isShuffle);
+        
+        if (isShuffle) {
+          generateShuffleQueue();
+        }
+      }
+      
+      // Generate shuffle queue
+      function generateShuffleQueue() {
+        if (currentAlbumIndex < 0) return;
+        
+        const album = manifest.albums[currentAlbumIndex];
+        playQueue = Array.from(
+          { length: album.tracks.length }, 
+          (_, i) => i
+        ).filter(i => i !== currentTrackIndex);
+        
+        // Fisher-Yates shuffle
+        for (let i = playQueue.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [playQueue[i], playQueue[j]] = [playQueue[j], playQueue[i]];
+        }
+      }
+      
+      // Toggle repeat mode
+      function toggleRepeat() {
+        isRepeat = !isRepeat;
+        repeatButton.classList.toggle('active', isRepeat);
+        audioPlayer.loop = isRepeat;
+      }
+      
+      // Update progress bar
+      function updateProgress() {
+        if (!isPlaying) return;
+        
+        const currentTime = audioPlayer.currentTime;
+        const duration = audioPlayer.duration || 0;
+        
+        // Update time displays
+        currentTimeEl.textContent = formatTime(currentTime);
+        totalTimeEl.textContent = formatTime(duration);
+        
+        // Update progress bar
+        const progressPercent = (currentTime / duration) * 100;
+        progress.style.width = `${progressPercent}%`;
+        progressHandle.style.left = `${progressPercent}%`;
+      }
+      
+      // Seek in track
+      function seek(e) {
+        const rect = progressBar.getBoundingClientRect();
+        const clickPosition = (e.clientX - rect.left) / rect.width;
+        const seekTime = clickPosition * audioPlayer.duration;
+        
+        audioPlayer.currentTime = seekTime;
+      }
+      
+      // Event Listeners
+      playButton.addEventListener('click', togglePlay);
+      prevButton.addEventListener('click', playPrevious);
+      nextButton.addEventListener('click', playNext);
+      shuffleButton.addEventListener('click', toggleShuffle);
+      repeatButton.addEventListener('click', toggleRepeat);
+      
+      progressBar.addEventListener('click', seek);
+      
+      // Audio player events
+      audioPlayer.addEventListener('timeupdate', updateProgress);
+      audioPlayer.addEventListener('ended', () => {
+        if (!isRepeat) {
+          playNext();
+        }
+      });
+      
+      // Initial load
+      loadManifest();
+    });
+  </script>
 </body>
 </html>
