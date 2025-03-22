@@ -12,8 +12,43 @@ def get_metadata(file_path):
         "path": file_path,
         "title": os.path.basename(file_path),
         "artist": "C418",
+        "album": "",  # Added album field
         "duration": 0
     }
+
+    try:
+        if file_ext == '.mp3':
+            audio = MP3(file_path)
+            if audio.tags:
+                if 'TIT2' in audio.tags:
+                    metadata["title"] = str(audio.tags['TIT2'])
+                if 'TPE1' in audio.tags:
+                    metadata["artist"] = str(audio.tags['TPE1'])
+                if 'TALB' in audio.tags:
+                    metadata["album"] = str(audio.tags['TALB'])
+            metadata["duration"] = int(audio.info.length)
+        elif file_ext == '.flac':
+            audio = FLAC(file_path)
+            if 'title' in audio:
+                metadata["title"] = audio['title'][0]
+            if 'artist' in audio:
+                metadata["artist"] = audio['artist'][0]
+            if 'album' in audio:
+                metadata["album"] = audio['album'][0]
+            metadata["duration"] = int(audio.info.length)
+        elif file_ext == '.ogg':
+            audio = OggVorbis(file_path)
+            if 'title' in audio:
+                metadata["title"] = audio['title'][0]
+            if 'artist' in audio:
+                metadata["artist"] = audio['artist'][0]
+            if 'album' in audio:
+                metadata["album"] = audio['album'][0]
+            metadata["duration"] = int(audio.info.length)
+    except Exception as e:
+        print(f"Error reading metadata from {file_path}: {e}")
+
+    return metadata
     
     try:
         if file_ext == '.mp3':
@@ -42,6 +77,60 @@ def get_metadata(file_path):
         print(f"Error reading metadata from {file_path}: {e}")
     
     return metadata
+
+def process_study_album(manifest):
+    """
+    Process the 'study' special album by grouping songs by their original albums.
+    """
+    # Find the study album in the manifest
+    study_album = None
+    for album in manifest["albums"]:
+        if album["title"].lower() == "study":
+            study_album = album
+            break
+    
+    if not study_album:
+        return  # No study album found
+    
+    # Group tracks by original album using metadata
+    tracks_by_album = {}
+    for track in study_album["tracks"]:
+        # Try to extract album info from metadata
+        album_name = "Unknown"
+        try:
+            file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), track["path"])
+            file_ext = os.path.splitext(file_path)[1].lower()
+            
+            if file_ext == '.mp3':
+                from mutagen.mp3 import MP3
+                audio = MP3(file_path)
+                if audio.tags and 'TALB' in audio.tags:
+                    album_name = str(audio.tags['TALB'])
+            elif file_ext == '.flac':
+                from mutagen.flac import FLAC
+                audio = FLAC(file_path)
+                if 'album' in audio:
+                    album_name = audio['album'][0]
+            elif file_ext == '.ogg':
+                from mutagen.oggvorbis import OggVorbis
+                audio = OggVorbis(file_path)
+                if 'album' in audio:
+                    album_name = audio['album'][0]
+        except Exception as e:
+            print(f"Error reading album metadata from {track['path']}: {e}")
+        
+        if album_name not in tracks_by_album:
+            tracks_by_album[album_name] = []
+        
+        tracks_by_album[album_name].append(track)
+    
+    # Sort by album name and replace study album tracks with sorted list
+    sorted_tracks = []
+    for album_name in sorted(tracks_by_album.keys()):
+        sorted_tracks.extend(tracks_by_album[album_name])
+    
+    # Update the study album tracks
+    study_album["tracks"] = sorted_tracks
 
 def scan_directory():
     """
@@ -114,6 +203,9 @@ def scan_directory():
     # Add last updated timestamp
     import datetime
     manifest["lastUpdated"] = datetime.datetime.now().isoformat()
+    
+    # Process special study album if it exists
+    process_study_album(manifest)
     
     # Write manifest to file
     with open(manifest_path, 'w', encoding='utf-8') as f:
